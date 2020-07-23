@@ -1,16 +1,49 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+import ReadScreen from "./sceens/readScreen"
+import WriteScreen from "./sceens/writeScreen"
+
+export default class App extends React.Component {
+  render(){
+    return (
+      
+        <AppContainer/>
+      
+    );
+  }
+  
 }
 
+const TabNavigator = createBottomTabNavigator({
+  WriteStories: {screen: WriteScreen},
+  ReadBooks: {screen: ReadScreen},
+},
+{
+  defaultNavigationOptions: ({navigation})=>({
+    tabBarIcon: ()=>{
+      const routeName = navigation.state.routeName;
+      console.log(routeName);
+      if(routeName === "ReadBooks"){
+        return(
+          <Text>Read Books</Text>
+        )
+        
+      }
+      else if(routeName === "WriteStories"){
+        return(
+          <Text>Write stories</Text>
+        )
+        
+      }
+    }
+  })
+}
+);
+
+const AppContainer =  createAppContainer(TabNavigator);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
