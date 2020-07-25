@@ -5,8 +5,7 @@ export default class ReadScreen extends React.Component {
     render(){
         return(
             <View style = {styles.textView}>
-                <Text style = {styles.text}>Read Screen</Text>
-                
+                <Text style = {styles.text}>Read Books</Text>               
             </View>
         )
     }
