@@ -1,32 +1,55 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import db from "../config";
 
 export default class WriteScreen extends React.Component {
     constructor(){
         super();
         this.state = {
-            text : ""
+            title : "",
+            story : "",
+            author : "",
         }
     }
 
     submitStory = ()=>{
-        console.log("qwertyuiop")
-        alert("Congratulations your story has been submitted")
+        db.collection("Stories").add({
+            Title : this.state.title,
+            Story : this.state.story,
+            Author : this.state.author,
+        })
+        alert("Congratulations! You have written a story!");
     }
 
     render(){
         return(
             <View>
-                <TextInput style={styles.TextInput} multiline 
-                    placeholder = "Write your story here"
-                    numberOfLines={20} 
-                    onChangeText={(text) => {
+                <TextInput style={styles.titleTextInput}
+                    placeholder="Title your masterpiece"
+                    onChangeText={(text)=>{
                         this.setState({
-                            text : text,
+                            title : text,
                         })
                     }}
-                    value={this.state.text}
+                />
+                <TextInput style={styles.storyTextInput} 
+                    multiline 
+                    placeholder = "Write your story here"
+                    numberOfLines={15} 
+                    onChangeText={(text) => {
+                        this.setState({
+                            story : text,
+                        })
+                    }}
                     maxLength={-1}
+                />
+                <TextInput style={styles.authorTextInput}
+                    placeholder="Name of the Author"
+                    onChangeText={(text)=>{
+                        this.setState({
+                            author : text,
+                        })
+                    }}
                 />
                 <TouchableOpacity style = {styles.submit} onPress={this.submitStory}>
                     <Text style = {styles.submitText}>Submit</Text>
@@ -38,9 +61,23 @@ export default class WriteScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    TextInput : {
+    storyTextInput : {
         borderWidth : 3,
         margin : 30
+    },
+    titleTextInput : {
+        borderWidth : 3,
+        marginTop : 30,
+        marginLeft : 30,
+        width : 500,
+        height : 30,
+    },
+    authorTextInput:{
+        borderWidth : 3,
+        marginLeft : 935,
+        marginBottom : 40,
+        width : 400,
+        height : 30,
     },
     submit : {
         width : 90,
