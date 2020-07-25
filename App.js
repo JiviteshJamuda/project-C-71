@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
@@ -28,13 +28,17 @@ const TabNavigator = createBottomTabNavigator({
       console.log(routeName);
       if(routeName === "ReadBooks"){
         return(
-          <Text>Read Books</Text>
+          <Image  style={styles.readImg}
+            source={require("./assets/read.png")}
+          />
         )
         
       }
       else if(routeName === "WriteStories"){
         return(
-          <Text>Write stories</Text>
+          <Image  style={styles.readImg}
+            source={require("./assets/write.png")}
+          />
         )
         
       }
@@ -51,4 +55,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  readImg : {
+    width : 70,
+    height : 35,
+  }
 });
